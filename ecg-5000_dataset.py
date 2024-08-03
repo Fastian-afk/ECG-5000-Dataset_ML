@@ -6,13 +6,13 @@ from darts import TimeSeries
 from darts.ad import ForecastingAnomalyModel, NormScorer
 from darts.models import TCNModel
 
-# Load the training dataset
+# Loading the training dataset
 
 train_data = pd.read_csv("ECG5000/ECG5000_TRAIN.txt", delim_whitespace=True, header=None)
 print("Loaded Training Data:")
 print(train_data)
 
-# Load the test dataset
+# Loading the test dataset
 
 test_data = pd.read_csv("ECG5000/ECG5000_TEST.txt", delim_whitespace=True, header=None)
 print("Loaded Test Data:")
