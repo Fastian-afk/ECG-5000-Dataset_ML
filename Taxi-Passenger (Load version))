@@ -52,21 +52,6 @@ n_epochs = 1
 train, val = series_taxi_thanksgiving.split_before(0.8)
 
 # Create and train the TCN model
-"""
-model = TCNModel(
-    input_chunk_length=input_chunk_length,
-    output_chunk_length=output_chunk_length,
-    kernel_size=2,
-    num_filters=16,
-    n_epochs=n_epochs,
-    dropout=0.2,
-    random_state=42
-)
-model.fit(train)
-"""
-
-# Save the model
-model.save("/content/drive/MyDrive/Internship/Saved model/TCN_Model.pth.tar")
 
 #Load the model
 loaded_model = TCNModel.load("/content/drive/MyDrive/Internship/Saved model/TCN_Model.pth.tar")
