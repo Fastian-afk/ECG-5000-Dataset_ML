@@ -1,79 +1,146 @@
-                                    ECG ANOMALY DETECTION USING TEMPORAL CONVOLUTIONAL NETWORK (TCN):
-OVERVIEW:-
+# ❤️ ECG Anomaly Detection using Temporal Convolutional Networks (TCN)
+**Time-Series Anomaly Detection for Cardiac Signals**
 
-A) Objective: Detect anomalies in ECG (Electrocardiogram) data using machine learning techniques.
-B) Key Features: Data preprocessing, TCN model training, and anomaly detection on ECG signals.
+<p align="center">
+  <img src="https://img.shields.io/badge/Time%20Series-ECG-blue?style=for-the-badge"/>
+  <img src="https://img.shields.io/badge/Model-TCN-green?style=for-the-badge"/>
+  <img src="https://img.shields.io/badge/Task-Anomaly%20Detection-red?style=for-the-badge"/>
+</p>
 
-PREREQUISITES:-
+---
 
-1. Libraries Used:
+## 📌 Overview
+This project focuses on **detecting anomalies in ECG (Electrocardiogram) signals** using a **Temporal Convolutional Network (TCN)** trained on *normal* cardiac rhythms.
 
-NumPy, Pandas, Matplotlib for data manipulation and visualization.
-Scikit-learn for data splitting and normalization.
-Darts for time series modeling and anomaly detection.
-TensorFlow, PyTorch Lightning for early stopping during model training.
+Instead of treating anomaly detection as a classification task, the model **learns normal ECG behavior** and flags deviations using **forecasting-based anomaly scoring**, a robust and scalable approach widely used in real-world monitoring systems.
 
-PROJECT WORKFLOW:-
+---
 
-1. Loading and Merging the Dataset:
-   
-Data Sources: "train_data" and "test_data" loaded from text files.
-Merged Data: Combined into a single dataset "merged_data" for streamlined processing.
+## 🎯 Objective
+- Detect abnormal ECG patterns that may indicate cardiac irregularities  
+- Leverage **deep time-series modeling** instead of rule-based detection  
+- Apply **statistical thresholding** for interpretable anomaly decisions  
 
-2. Defining Normal and Anomalous Classes:
-   
-Class Definitions:
-Normal: Label 1 (Normal ECG signals).
-Anomalous: Any label other than 1.
-Dataset Split: Created "normal_data" and "anomalous_data" subsets.
+---
 
-3. Data Splitting and Normalization:
-   
-Feature Selection: Extracted features into "X_normal", excluding labels.
-Splitting: Used "train_test_split" for dividing the data into training, validation, and test sets.
-Normalization: Applied "StandardScaler" to standardize features across datasets.
+## 🔬 Key Features
+- ⏱ Time-series forecasting using **TCN**
+- 🧠 Training exclusively on **normal ECG signals**
+- 📊 Statistical anomaly scoring with dynamic thresholding
+- 🛑 Early stopping to prevent overfitting
+- 📈 Visualization of ECG signals and anomaly scores
 
-4. Converting Data to TimeSeries Format:
-   
-TimeSeries Conversion: Transformed data into TimeSeries objects, essential for time series modeling.
-Ensuring Variability: Checked and modified data to ensure multiple samples in TimeSeries.
+---
 
-5. Implementing Early Stopping:
-   
-Purpose: Prevent overfitting by stopping training based on validation performance.
-Configuration: Monitored "val_loss", stopping if no improvement by 0.05 for 5 epochs.
+## 🛠 Tech Stack
+<p align="left">
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" width="38"/>
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/numpy/numpy-original.svg" width="38"/>
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pandas/pandas-original.svg" width="38"/>
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tensorflow/tensorflow-original.svg" width="38"/>
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pytorch/pytorch-original.svg" width="38"/>
+</p>
 
-6. Training the TCN Model:
-   
-Model Configuration: Set input chunk length to 30 and output chunk length to 10.
-Training: Trained on "series_train" (normal ECG data) with early stopping.
-Model Saving: Saved the trained model for later use.
+**Libraries & Frameworks**
+- NumPy, Pandas — data processing  
+- Matplotlib — visualization  
+- Scikit-learn — splitting & normalization  
+- **Darts** — time-series modeling & anomaly detection  
+- PyTorch Lightning — training utilities & early stopping  
 
-7. Anomaly Detection Model:
-   
-ForecastingAnomalyModel: Used the trained TCN model to detect anomalies by comparing predictions with actual values.
-NormScorer: Calculated anomaly scores based on deviations.
+---
 
-8. Calculating Anomaly Scores and Threshold:
-   
-Threshold Determination: Set threshold as mean validation anomaly score plus three times the standard deviation.
-Purpose: Classify ECG signals as anomalous or normal based on this threshold.
+## 📂 Project Workflow
 
-9. Evaluating on Test Data:
-    
-Anomaly Score Calculation: Applied the model to test data and calculated anomaly scores for both normal and anomalous signals.
-Results: Printed anomaly scores for comparison.
+### 1️⃣ Data Loading & Merging
+- ECG-5000 dataset loaded from `train_data` and `test_data`
+- Combined into a unified dataset for streamlined processing
 
-10. Visualizing Results:
-    
-ECG Signal Plotting: Displayed ECG signals with the anomaly threshold, highlighting anomalous regions.
-Anomaly Score Plotting: Showed anomaly scores for normal and anomalous data, with the threshold line.
+---
 
-KEY CONCEPTS:-
+### 2️⃣ Normal vs Anomalous Definition
+- **Normal ECG** → Label `1`
+- **Anomalous ECG** → Any label ≠ `1`
+- Dataset split into:
+  - `normal_data`
+  - `anomalous_data`
 
-A) Time Series Modeling: Leveraged TCN for predicting future points in ECG time series.
-B) Anomaly Detection: Identified unusual patterns by comparing predicted and actual ECG signals.
-C) Early Stopping: Used to prevent model overfitting during training.
+---
 
-Contact
-For questions or collaboration, please contact [Imaad Fazal or Ahmed Shaheer / imdufazal@gmail.com or ahmedshaheer605@gmail.com].
+### 3️⃣ Data Splitting & Normalization
+- Features extracted (labels excluded)
+- Train / validation / test split using `train_test_split`
+- Standardization via `StandardScaler`
+
+---
+
+### 4️⃣ TimeSeries Conversion
+- Data converted into **Darts `TimeSeries` objects**
+- Ensured sufficient temporal variability for model learning
+
+---
+
+### 5️⃣ Early Stopping Strategy
+- Monitored: `val_loss`
+- Patience: 5 epochs  
+- Minimum improvement threshold: `0.05`
+- Prevents overfitting and unnecessary training
+
+---
+
+### 6️⃣ TCN Model Training
+- Input chunk length: `30`
+- Output chunk length: `10`
+- Trained only on **normal ECG signals**
+- Final model saved for reuse
+
+---
+
+### 7️⃣ Anomaly Detection
+- Used **ForecastingAnomalyModel**
+- Compared predicted ECG values with actual signals
+- **NormScorer** used to compute anomaly scores
+
+---
+
+### 8️⃣ Threshold Selection
+- Threshold =  
+  **mean(validation scores) + 3 × std(validation scores)**
+- Enables statistically interpretable anomaly detection
+
+---
+
+### 9️⃣ Evaluation on Test Data
+- Anomaly scores computed for:
+  - Normal ECG samples
+  - Anomalous ECG samples
+- Scores printed for direct comparison
+
+---
+
+### 🔟 Visualization
+- 📉 ECG signal plots with anomaly regions highlighted
+- 📊 Anomaly score plots with threshold overlay
+
+---
+
+## 📊 Why This Approach Works
+- Learns **normal cardiac behavior** instead of memorizing anomalies
+- Robust to unseen anomaly patterns
+- Aligns with **industry-grade monitoring systems**
+- Scales well to real-time ECG streams
+
+---
+
+## 👨‍💻 Authors
+**Imaad Fazal**  
+**Ahmed Shaheer**
+
+📧 Emails:  
+- imdufazal@gmail.com  
+- ahmedshaheer605@gmail.com  
+
+---
+
+## 📜 License
+This project is released under the **MIT License**.
